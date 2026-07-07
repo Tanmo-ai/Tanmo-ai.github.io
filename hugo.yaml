@@ -1,0 +1,119 @@
+# =============================================================
+# Hugo 站点配置
+#   - 主题: PaperMod
+#   - 部署目标: GitHub Pages (https://<USERNAME>.github.io/)
+#   - 部署方式: GitHub Actions
+# =============================================================
+
+baseURL: "https://tanmo-ai.github.io/"     # GitHub Pages 站点地址
+locale: "zh-cn"
+defaultContentLanguage: "zh-cn"
+title: "Tanmo 的知识花园"                 # <-- 想改就改
+theme: "PaperMod"
+
+# 中文分词与摘要
+hasCJKLanguage: true
+summaryLength: 70
+
+# 分页
+pagination:
+  pagerSize: 10
+
+# 内容渲染（数学公式安全需要）
+markup:
+  goldmark:
+    renderer:
+      unsafe: true          # 允许在 md 里写原始 HTML（KaTeX 需要）
+    extensions:
+      passthrough:
+        enable: true         # 让 $...$ / $$...$$ 原样传给 KaTeX，避免被 md 破坏
+        delimiters:
+          block:
+            - ["\\[", "\\]"]
+            - ["$$", "$$"]
+          inline:
+            - ["\\(", "\\)"]
+            - ["$", "$"]
+  highlight:
+    style: dracula
+    lineNos: false
+    codeFences: true
+    guessSyntax: true
+    tabWidth: 2
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+
+# 站点参数
+params:
+  env: production
+  description: "记录 LLM/AI Infra 学习、论文笔记、代码笔记。"
+  author: "Tanmo"
+  DateFormat: "2006-01-02"
+  defaultTheme: auto           # auto / light / dark
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowWordCount: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowToc: true
+  TocOpen: false
+  math: true                   # 开启 KaTeX
+
+  # 首页显示模式：profileMode / homeInfoParams
+  homeInfoParams:
+    Title: "你好，我是 Tanmo 👋"
+    Content: >
+      这里记录我关于大模型推理优化、AI Infra、系统工程的学习与思考。
+      新文章通过 GitHub Actions 自动部署到 GitHub Pages。
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/Tanmo-ai"      # <-- 换成你的
+    - name: rss
+      url: "index.xml"
+
+  # 首页文章卡片显示封面（如果有）
+  cover:
+    linkFullImages: true
+    responsiveImages: true
+    hidden: false
+
+  assets:
+    disableFingerprinting: false
+    favicon: "/favicon.ico"
+
+# 顶部菜单
+menu:
+  main:
+    - identifier: posts
+      name: 文章
+      url: /posts/
+      weight: 10
+    - identifier: archives
+      name: 归档
+      url: /archives/
+      weight: 20
+    - identifier: tags
+      name: 标签
+      url: /tags/
+      weight: 30
+    - identifier: search
+      name: 搜索
+      url: /search/
+      weight: 40
+    - identifier: about
+      name: 关于
+      url: /about/
+      weight: 50
+
+# 站内搜索所需的 output
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON      # 提供给 Fuse.js 搜索
